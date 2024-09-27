@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Códigos de Barras</title>
+
+    <!-- TailwindCSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Flowbite CDN -->
+    <script src="https://unpkg.com/flowbite@1.4.5/dist/flowbite.js"></script>
+
+    <style>
+        /* Personalización del color verde basado en la imagen proporcionada */
+        .primary-green {
+            background-color: #81c341; /* Color verde personalizado */
+            color: white;
+        }
+        .primary-green:hover {
+            background-color: #6ba62f;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center">
+
+    <!-- Agregar el logo centrado -->
+    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="mb-6 w-24 h-24">
+
+    <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg text-center">
+        <h1 class="text-3xl font-bold text-gray-800 mb-8">Generador de Código de Barras</h1>
+
+        <form action="/" method="POST" id="codigoForm" class="mb-6">
+            <div class="relative">
+                <input type="text" name="numero_serie" id="numeroSerieInput" placeholder="Introduce el número de serie completo"
+                    class="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-primary-green focus:outline-none"
+                    required>
+            </div>
+            <button type="submit"
+                class="mt-4 w-full primary-green text-white py-3 px-6 rounded-lg font-medium text-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-green">
+                Generar Código de Barras
+            </button>
+        </form>
+
+        <!-- Mostrar la imagen del código de barras solo si ha sido generada -->
+        {% if imagen_codigo %}
+        <div class="mt-6">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Código de Barras para: <span class="text-primary-green">{{ numero_serie }}</span></h2>
+
+            <img src="{{ url_for('static', filename='images/' + imagen_codigo) }}" alt="Código de barras" class="mx-auto shadow-lg rounded-lg mb-4">
+
+            <!-- Ajustar el enlace para que se vea como un botón -->
+            <a href="{{ url_for('descargar', filename=imagen_codigo) }}"
+                class="block mt-4 w-full bg-teal-950 text-white py-3 px-6 rounded-lg font-medium text-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-green hover:bg-black text-center">
+                Descargar Código de Barras
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- JavaScript para volver el foco al input -->
+    <script>
+        // Cuando la página cargue, volver el foco al input de número de serie
+        window.onload = function() {
+            document.getElementById('numeroSerieInput').focus();
+        };
+    </script>
+</body>
+</html>
