@@ -25,7 +25,7 @@
 <body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center">
 
     <!-- Agregar el logo centrado -->
-    <img src="images/logo.png" alt="Logo" class="mb-6 w-24 h-24">
+    <img src="static/images/logo.png" alt="Logo" class="mb-6 w-24 h-24">
 
     <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg text-center">
         <h1 class="text-3xl font-bold text-gray-800 mb-8">Generador de Código de Barras</h1>
@@ -45,7 +45,7 @@
         <!-- Mostrar la imagen del código de barras solo si ha sido generada -->
         <div id="codigoBarrasContainer" class="mt-6 hidden">
             <h2 class="text-xl font-semibold text-gray-700 mb-4">Código de Barras para: <span id="numeroSerie" class="text-primary-green"></span></h2>
-            <svg id="codigoBarras" class="mx-auto shadow-lg rounded-lg mb-4"></svg>
+            <img id="codigoBarras" class="mx-auto shadow-lg rounded-lg mb-4" src="" alt="Código de barras" />
 
             <!-- Botón para descargar el código de barras -->
             <a id="descargarBtn" href="#" class="block mt-4 w-full bg-teal-950 text-white py-3 px-6 rounded-lg font-medium text-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-green hover:bg-black text-center hidden">
@@ -65,7 +65,7 @@
             // Mostrar el número de serie en la interfaz
             document.getElementById('numeroSerie').textContent = numeroSerie;
 
-            // Generar el código de barras
+            // Generar el código de barras usando JsBarcode
             JsBarcode("#codigoBarras", numeroSerie, {
                 format: "CODE128",
                 displayValue: true
